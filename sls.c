@@ -9,6 +9,7 @@ const int r_mid = 23;
 const int r_length = 185;
 const int r_tail = 0;
 const int r_shake = 5;
+const double r_a = 0.01;
 char *rocket[];
 char *blank;
 
@@ -35,11 +36,10 @@ void rocket_launch(int w, int h) {
 	}
 	double pos = 0;
 	double v = 0;
-	const double a = 0.01;
 
 	while((int)pos < r_length + r_tail + h) {
 		display((int)pos, offset + rand() % r_shake - (r_shake/2), h);
-		v += a;
+		v += r_a;
 		pos += v;
 		usleep(50000);
 	}
