@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <unistd.h>
+#include <signal.h>
 
 const int r_mid = 23;
 const int r_length = 185;
@@ -49,7 +50,13 @@ void rocket_launch(int w, int h) {
 	}
 }
 
+void handler(int dummy) {
+}
+
 int main() {
+	/* init sig handler */
+	signal(SIGINT, handler);
+
 	/* init rand */
 	srand(time(NULL));
 
