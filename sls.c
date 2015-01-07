@@ -9,9 +9,9 @@
 const int r_mid = 23;
 const int r_length = 185;
 const int r_tail = 0;
-const int r_shake = 3;
+const int r_shake = 5;
 const double r_a = 0.2;
-const int fps = 20;
+const int fps = 100;
 char *rocket[];
 char *blank;
 
