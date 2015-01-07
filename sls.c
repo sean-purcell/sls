@@ -8,8 +8,9 @@
 const int r_mid = 23;
 const int r_length = 185;
 const int r_tail = 0;
-const int r_shake = 5;
-const double r_a = 0.01;
+const int r_shake = 3;
+const double r_a = 0.2;
+const int fps = 20;
 char *rocket[];
 char *blank;
 
@@ -28,20 +29,23 @@ void display(int pos, int offset, int h) {
 void rocket_launch(int w, int h) {
 	int offset = w / 2 - r_mid;
 	int t = 0;
-	const int wait_time = 15;
+	const int sleep = 1000000 / fps;
+
+	const int wait_time = fps;
 	while(t < wait_time) {
 		display(0, offset + rand() % r_shake - (r_shake/2), h);
 		t++;
-		usleep(50000);
+		usleep(sleep);
 	}
+	const double a = r_a / fps;
 	double pos = 0;
 	double v = 0;
 
 	while((int)pos < r_length + r_tail + h) {
 		display((int)pos, offset + rand() % r_shake - (r_shake/2), h);
-		v += r_a;
+		v += a;
 		pos += v;
-		usleep(50000);
+		usleep(sleep);
 	}
 }
 
