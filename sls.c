@@ -8,14 +8,14 @@
 const int r_mid = 23;
 const int r_length = 185;
 const int r_tail = 0;
-const int r_shake = 3;
+const int r_shake = 5;
 char *rocket[];
-char *blank = "                                                       ";
+char *blank;
 
 void display(int pos, int offset, int h) {
 	int i;
 	for(i = 0; i < h && i + pos < r_length; i++) {
-		mvprintw(i, offset - r_shake, blank);
+		mvprintw(i, offset - r_shake / 2, blank);
 		mvprintw(i, offset, "%s", rocket[i + pos]);
 	}
 	for(; i < h; i++) {
@@ -38,7 +38,7 @@ void rocket_launch(int w, int h) {
 	const double a = 0.01;
 
 	while((int)pos < r_length + r_tail + h) {
-		display((int)pos, offset + rand() % 5 - 2, h);
+		display((int)pos, offset + rand() % r_shake - (r_shake/2), h);
 		v += a;
 		pos += v;
 		usleep(50000);
@@ -46,18 +46,24 @@ void rocket_launch(int w, int h) {
 }
 
 int main() {
+	/* init rand */
 	srand(time(NULL));
 
+	/* init blank line */
+	blank = malloc(50 + r_shake * 2 + 1);
+	memset(blank, ' ', 50 + r_shake * 2);
+
+	/* init ncurses */
 	int width, height;
 	initscr();
 	getmaxyx(stdscr, height, width);
 	curs_set(0);
 
+	/* run launch routine */
 	rocket_launch(width, height);
 
+	/* end ncurses */
 	endwin();
-
-	int offset = width / 2 - r_mid;
 }
 
 char *rocket[] = {
