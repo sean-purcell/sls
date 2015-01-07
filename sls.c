@@ -8,13 +8,14 @@
 const int r_mid = 23;
 const int r_length = 185;
 const int r_tail = 0;
+const int r_shake = 3;
 char *rocket[];
 char *blank = "                                                       ";
 
 void display(int pos, int offset, int h) {
 	int i;
 	for(i = 0; i < h && i + pos < r_length; i++) {
-		mvprintw(i, offset - 5, blank);
+		mvprintw(i, offset - r_shake, blank);
 		mvprintw(i, offset, "%s", rocket[i + pos]);
 	}
 	for(; i < h; i++) {
@@ -28,7 +29,7 @@ void rocket_launch(int w, int h) {
 	int t = 0;
 	const int wait_time = 15;
 	while(t < wait_time) {
-		display(0, offset + rand() % 5 - 2, h);
+		display(0, offset + rand() % r_shake - (r_shake/2), h);
 		t++;
 		usleep(50000);
 	}
