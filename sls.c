@@ -49,7 +49,7 @@ void update_exhausts(struct exhaust *exhausts, int h, int v) {
 	for(i = 0; i < num_exhausts; i++) {
 		exhausts[i].y += exhaust_speed + v;
 		exhausts[i].x += exhausts[i].xv;
-		if(exhausts[i].y > h * 2 || exhausts[i].c == '\0') {
+		if(exhausts[i].y > h * 2 || exhausts[i].c == '\0' || (rand() % 5 == 0)) {
 			exhausts[i].y = rand() % 20;
 			exhausts[i].x = rand() % 26 - 13;
 			exhausts[i].xv = rand() % 3 - 1;
